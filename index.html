@@ -1,0 +1,84 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>
+            Wanneer is de volgende wimtuin?
+        </title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <h1>
+            Het duurt nog
+        </h1>
+        <div id="countdown" class="countdown">
+        <script>
+            function findDay() {
+                var d = new Date();
+                var n = d.getDay()
+                return n;
+            }
+
+            function findFriday(day, unixDay) {
+                var d = new Date();
+                if (day < 5) {
+                    return unixDay + 5 - day;
+                }
+                else if (day = 5) {
+                    if (d.getHours() < 20) {
+                        return unixDay + 5 - day;
+                    }
+                    else {
+                        return unixDay + 7;
+                    }
+                }
+                else {
+                    return unixDay + 6;
+                }
+            }
+
+            var day = findDay();
+            var unixTime = new Date().getTime() / 1000;
+            var unixDay = Math.floor(unixTime/86400);
+            var nextFriday = findFriday(day, unixDay);
+            var dayOffset = new Date().getTimezoneOffset() * 60 * 1000;
+            var unixFriday = nextFriday * 86400000 + 72000000 + dayOffset;
+            var countDownDate = new Date(unixFriday);
+
+            // Update the count down every 1 second
+            var x = setInterval(function() {
+
+                // Get today's date and time
+                var now = new Date().getTime();
+
+                // Find the distance between now and the count down date
+                var distance = countDownDate - now;
+
+                // Time calculations for days, hours, minutes and seconds
+                var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                // Display the result in the element with id="demo"
+                document.getElementById("countdown").innerHTML = days + "d " + hours + "u "
+                + minutes + "m " + seconds + "s ";
+
+                // If the count down is finished, write some text
+                if (distance < 0) {
+                    clearInterval(x);
+                    document.getElementById("demo").innerHTML = "EXPIRED";
+                }
+            }, 1000);
+        </script>
+        </div>
+        <script>
+            var d = new Date();
+            document.write(d.getHours());
+            document.write("</br>>");
+            document.write(nextFriday);
+        </script>
+        <h1>
+            tot de volgende Wimtuin
+        </h1>
+    </body>
+</html>
