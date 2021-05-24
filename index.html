@@ -24,7 +24,7 @@
                     return unixDay + 5 - day;
                 }
                 else if (day == 5) {
-                    if (d.getHours() < 20) {
+                    if (d.getUTCHours() < 20) {
                         return unixDay + 5 - day;
                     }
                     else {
@@ -40,8 +40,7 @@
             var unixTime = new Date().getTime() / 1000;
             var unixDay = Math.floor(unixTime/86400);
             var nextFriday = findFriday(day, unixDay);
-            var dayOffset = new Date().getTimezoneOffset() * 60 * 1000;
-            var unixFriday = nextFriday * 86400000 + 72000000 + dayOffset;
+            var unixFriday = nextFriday * 86400000 + 64800000;
             var countDownDate = new Date(unixFriday);
 
             // Update the count down every 1 second
